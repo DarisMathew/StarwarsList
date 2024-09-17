@@ -1,0 +1,77 @@
+Project Setup: Star Wars iOS App
+
+1. Project Structure
+
+I designed the coding challenge with a simple project structure that follows the MVVM (Model-View-ViewModel) pattern, separating concerns between data models, view models, views, and services. Here's the base structure:
+
+StarWarsApp
+├── Model
+│   ├── Character.swift
+│   └── Planet.swift
+├── ViewModels
+│   ├── CharactersViewModel.swift
+│   └── CharacterDetailViewModel.swift
+├── Views
+│   ├── CharactersListView.swift
+│   └── CharacterDetailView.swift
+├── Services
+│   └── APIService.swift
+└── StarWarsApp.swift
+
+
+However, as the app grows and additional features or components are added, a more scalable and modular structure is essential. For scalability, I’ve suggested a feature-based structure as shown below:
+
+StarWarsApp
+├── Components
+│   ├── CharacterList
+│   │   ├── Model
+│   │   │   └── Character.swift
+│   │   ├── ViewModels
+│   │   │   └── CharactersViewModel.swift
+│   │   ├── Views
+│   │   │   └── CharactersListView.swift
+│   │   └── Repositories
+│   │       └── CharacterRepository.swift
+│   ├── CharacterDetail
+│   │   ├── Model
+│   │   │   └── Planet.swift
+│   │   ├── ViewModels
+│   │   │   └── CharacterDetailViewModel.swift
+│   │   ├── Views
+│   │   │   └── CharacterDetailView.swift
+│   │   └── Repositories
+│   │       └── PlanetRepository.swift
+├── Shared
+│   ├── Views
+│   │   └── LoadingView.swift
+│   ├── Services
+│   │   └── APIService.swift
+│   ├── Networking
+│   │   ├── NetworkManager.swift
+│   │   └── Endpoints.swift
+├── Resources
+│   └── Assets.xcassets
+├── Coordinators
+│   └── AppCoordinator.swift
+├── App
+│   └── StarWarsApp.swift
+
+
+2. Features Implemented
+API: Used https://swapi.dev/api/ for "people" and "homeworld" data.
+Main View (CharactersListView): Displays a list of characters (name and gender) with lazy loading and pagination.
+Detail View (CharacterDetailView): Shows detailed information about a selected character, including an additional API call for their homeworld.
+Async Data Fetching: Implemented using Swift's async/await, making API calls easier to manage and more readable.
+Loading States: Displayed via ProgressView during data fetching.
+Minimal UI: Following instructions, the UI is kept simple and functional with SwiftUI's clean design.
+
+3. Error Handling
+Current Approach: Errors are logged to the console for debugging.
+
+4. Key Architectural Decisions
+Async/Await: Used for asynchronous data fetching, simplifying API handling compared to callbacks or Combine.
+State Management: Handled via @StateObject and @Published properties, ensuring automatic UI updates.
+Lazy Loading & Pagination: Handled with nextPageURL to load more characters, triggered by a "Load More" button.
+
+Note on Testing
+Due to time constraints, tests were not written. However, the modular structure supports easy testability for future additions.
